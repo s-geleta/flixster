@@ -7,7 +7,34 @@ import "./MovieList.css";
 
 const MovieList = () => {
     const [movies, setMovies] = useState([]);
+
+    //setting initial page to 1, state is incremented by 1 when load more button is clicked2
     const [page , setPage] = useState(1);
+
+    const [searchQuery, setSearchQuery] = useState('')  ;
+    
+        
+    const handleChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearch = () => {
+        if (searchQuery.trim() === "") {
+            setMovies(movies);
+            return;
+        }
+        const searched = movies.filter(
+            (movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setMovies(searched);
+    };
+
+    const handleClear = () => {
+        setSearchQuery("");
+        setMovies(movies);
+    };
+    
+
     
     useEffect(() => {
         const fetchList = async () => {
@@ -19,7 +46,9 @@ const MovieList = () => {
                 accept: "application/json",
                 },
             });
+                //appending new fetched movies to the existing movies array when load more button is clicked
                 setMovies((prevMovies)=>[...prevMovies, ...data.results]);
+                
 
             }
             catch(err){
@@ -34,17 +63,25 @@ const MovieList = () => {
 
     return (
         <>
+        <div>
+            <input type="text" placeholder="Search for movies" onChange={handleChange}/> 
+            <button onClick={handleSearch}>Search</button> 
+            <button onClick={handleClear}>Clear</button>
+        </div>
+        
         <div className ="movie-list">
             {movies.map((movie) => (
                 <MovieCard
                 key={movie.id}
                 name={movie.title}
                 poster={movie.poster_path}
+                rating={movie.vote_average}
                 />
 
             ))}
+            
         </div>
-        <button onClick={() => setPage(page + 1)}>Next Page</button>
+        <button onClick={() => setPage(page + 1)} className="load-more">Load More</button>
 
     
         </>

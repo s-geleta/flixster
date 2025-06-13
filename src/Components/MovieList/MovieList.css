@@ -1,0 +1,28 @@
+.movie-list {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap:1.5 rem;
+    padding: 1rem;  
+    background-color: #2e2e2e;
+}
+
+.movie-list:empty::before{
+    content: "Loading Movies...";
+    display: block; 
+    width: 100%;
+    text-align: center; 
+    color: gray;
+    font-size: 1.1 rem;    
+}
+
+.load-more {
+    background-color: #282c34;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    padding: 0.5rem;
+    margin: 1rem;
+}
