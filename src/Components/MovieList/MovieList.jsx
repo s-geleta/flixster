@@ -49,7 +49,7 @@ const MovieList = () => {
                 //appending new fetched movies to the existing movies array when load more button is clicked
                 setMovies((prevMovies)=>[...prevMovies, ...data.results]);
                 
-
+                
             }
             catch(err){
                 console.error("Error fetching movies: ", err);
@@ -66,7 +66,7 @@ const MovieList = () => {
         <div>
             <input type="text" placeholder="Search for movies" onChange={handleChange}/> 
             <button onClick={handleSearch}>Search</button> 
-            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleClear}> Clear</button>
         </div>
         
         <div className ="movie-list">
@@ -77,7 +77,6 @@ const MovieList = () => {
                 poster={movie.poster_path}
                 rating={movie.vote_average}
                 />
-
             ))}
             
         </div>
