@@ -12,6 +12,7 @@ const MovieList = () => {
     const [page , setPage] = useState(1);
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [input, setInput] = useState('');
     
     
     
@@ -28,7 +29,7 @@ const MovieList = () => {
                 },
             });
                 //appending new fetched movies to the existing movies array when load more button is clicked
-                setMovies(prevMovies=> page ===1 ? data.results : [...prevMovies, ...data.results]);
+                setMovies(prevMovies=> page === 1 ? data.results : [...prevMovies, ...data.results]);
             }
             catch(err){
                 console.error("Error fetching movies: ", err);
@@ -39,31 +40,41 @@ const MovieList = () => {
     },[page]);
 
     useEffect(() => {
+
+        //
        if(!searchQuery.trim()){
            setFilteredMovies(movies);
        } else {
+
+        //determining if any of the movie titles match the search query
         const toLower = searchQuery.toLowerCase();  
         setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(toLower)));
        }
     }, [movies, searchQuery]);
 
+    //sets the input value to the value of the search query when the search query is updated
     const handleChange = (e) => {
-        setSearchQuery(e.target.value);
+        setInput(e.target.value);
     };
 
+    //clears the input and search query when the clear button is clicked
     const handleClear = () => {
+        setInput("");
         setSearchQuery("");
     };
 
+    //sets the search query to the input value when the search button is clicked for displaying
     const handleSearch = () => {
-        setPage(1);
+        
+        setSearchQuery(input);
     };
 
 
     return (
         <>
         <div>
-            <input type="text" placeholder="Search for movies" value={searchQuery} onChange={handleChange}/> 
+            <input type="text" placeholder="Search for movies" value={input} 
+            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
             <button onClick={handleSearch}>Search</button> 
             <button onClick={handleClear}> Clear</button>
         </div>
@@ -79,6 +90,8 @@ const MovieList = () => {
             ))}
             
         </div>
+        
+        {/*loads more movies by adding a page when load more is pressed*/}
         <button onClick={() => setPage(page + 1)} className="load-more">Load More</button>
 
     
