@@ -7,32 +7,13 @@ import "./MovieList.css";
 
 const MovieList = () => {
     const [movies, setMovies] = useState([]);
-
+    const [filteredMovies, setFilteredMovies] = useState([]);
     //setting initial page to 1, state is incremented by 1 when load more button is clicked2
     const [page , setPage] = useState(1);
 
-    const [searchQuery, setSearchQuery] = useState('')  ;
+    const [searchQuery, setSearchQuery] = useState('');
     
-        
-    const handleChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-
-    const handleSearch = () => {
-        if (searchQuery.trim() === "") {
-            setMovies(movies);
-            return;
-        }
-        const searched = movies.filter(
-            (movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setMovies(searched);
-    };
-
-    const handleClear = () => {
-        setSearchQuery("");
-        setMovies(movies);
-    };
+    
     
 
     
@@ -47,30 +28,48 @@ const MovieList = () => {
                 },
             });
                 //appending new fetched movies to the existing movies array when load more button is clicked
-                setMovies((prevMovies)=>[...prevMovies, ...data.results]);
-                
-                
+                setMovies(prevMovies=> page ===1 ? data.results : [...prevMovies, ...data.results]);
             }
             catch(err){
                 console.error("Error fetching movies: ", err);
             }
             
         };
-        
-        
         fetchList();
     },[page]);
+
+    useEffect(() => {
+       if(!searchQuery.trim()){
+           setFilteredMovies(movies);
+       } else {
+        const toLower = searchQuery.toLowerCase();  
+        setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(toLower)));
+       }
+    }, [movies, searchQuery]);
+
+    const handleChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleClear = () => {
+        setSearchQuery("");
+    };
+
+    const handleSearch = () => {
+        setPage(1);
+    };
+
 
     return (
         <>
         <div>
-            <input type="text" placeholder="Search for movies" onChange={handleChange}/> 
+            <input type="text" placeholder="Search for movies" value={searchQuery} onChange={handleChange}/> 
             <button onClick={handleSearch}>Search</button> 
             <button onClick={handleClear}> Clear</button>
         </div>
         
         <div className ="movie-list">
-            {movies.map((movie) => (
+            {filteredMovies.map((movie) => (
                 <MovieCard
                 key={movie.id}
                 name={movie.title}
