@@ -154,10 +154,10 @@ const MovieList = () => {
         <>
         {/*search bar for user input */}
         <div>
-            <input type="text" placeholder="Search for movies" value={input} 
+            <input type="text" placeholder="Search for movies..." value={input} 
             onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
-            <button onClick={handleSearch}>Search</button>
-            <button onClick={handleClear}> Clear</button>
+            <button className="search-button" onClick={handleSearch}>Search</button>
+            <button className="clear-button" onClick={handleClear}> Clear</button>
         </div>
 
         {/*dropdown menu for sorting movies*/}

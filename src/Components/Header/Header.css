@@ -1,0 +1,14 @@
+.header { 
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 3rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    padding: 20px 20px 0px 20px;
+    height: 110px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+
+

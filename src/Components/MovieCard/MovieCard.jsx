@@ -6,7 +6,7 @@ const MovieCard = ({ name, onClick, poster, rating }) => {
         <>
         <div className="movie-card" onClick={onClick}> 
             <h1>{name}</h1>
-            <img src={`https://image.tmdb.org/t/p/w500${poster}`} alt="poster" />
+            <img src={`https://image.tmdb.org/t/p/w500${poster}`} alt={name} />
             <p>Rating: {rating}</p>
             
         </div>

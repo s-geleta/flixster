@@ -75,3 +75,41 @@
 .dropdown-content a:hover {background-color: #f1f1f1}
 
 .show {display:block;}
+
+input{
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;  
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    box-shadow: #282c34 0px 0px 10px;
+}
+
+.search-button{
+    background-color: #282c34;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    padding: 0.5rem;
+    margin: .1rem;
+    border-radius: 10px;
+}
+
+.clear-button{
+    background-color: #282c34;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    padding: 0.5rem;
+    margin: .1rem;
+    border-radius: 10px;
+}   

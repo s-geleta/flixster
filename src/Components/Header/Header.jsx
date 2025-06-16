@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'    
+import './Header.css'
 
 const Header = () => {
 
@@ -8,7 +9,7 @@ const Header = () => {
   return (
     <>
     <div className = 'header'>
-        <h1>Flixster</h1> 
+        <h1>FLIXSTER</h1> 
     </div>
     </>
   )
