@@ -6,18 +6,35 @@ import "./MovieList.css";
 
 
 const MovieList = () => {
-    const [movies, setMovies] = useState([]);
-    const [filteredMovies, setFilteredMovies] = useState([]);
+    const [movies, setMovies] = useState([]); //initial array of all movies
+    const [filteredMovies, setFilteredMovies] = useState([]); //initial array of filtered movies
+
     //setting initial page to 1, state is incremented by 1 when load more button is clicked2
     const [page , setPage] = useState(1);
 
     const [searchQuery, setSearchQuery] = useState('');
     const [input, setInput] = useState('');
-    
-    
-    
 
+    const [sortAtoZ, setSortAtoZ] = useState('');
+    const [sortRating, setSortRating] = useState('');   
+    const [sortRelease, setSortRelease] = useState('');
     
+    const [dropdown, setDropdown] = useState(false);
+    const handleDropdown = () => setDropdown(!dropdown);
+
+    useEffect(() => {   
+        const click = (e) => {
+            if(e.target.closest('.dropdown-content')){
+                setDropdown(false);
+            }
+        };
+        document.addEventListener('click', click);
+        return () => {
+            document.removeEventListener('click', click);
+        };
+    }, []);
+
+
     useEffect(() => {
         const fetchList = async () => {
             try{
@@ -63,9 +80,9 @@ const MovieList = () => {
         setSearchQuery("");
     };
 
-    //sets the search query to the input value when the search button is clicked for displaying
+    //sets the search query to the input value when the search button is clicked for displaying, as well as resets the page to 1
     const handleSearch = () => {
-        
+        setPage(1);
         setSearchQuery(input);
     };
 
@@ -78,7 +95,19 @@ const MovieList = () => {
             <button onClick={handleSearch}>Search</button> 
             <button onClick={handleClear}> Clear</button>
         </div>
-        
+
+        <div className = "dropdown">
+            <button className="dropbtn" onClick={handleDropdown}>Sort By</button>
+            <div className={dropdown ? "dropdown-content show" : "dropdown-content"}>
+                <a href="#" onClick={() => {setSortAtoZ('Ascending'); setDropdown(false);}}>Sort A to Z</a>
+                <a href="#" onClick={() => {setSortRelease('Descending'); setDropdown(false);}}>Release Date Descending</a>
+                <a href="#" onClick={() => {setSortRating('Descending'); setDropdown(false);}}>Rating Descending</a>
+                
+            </div>
+        </div>
+
+
+
         <div className ="movie-list">
             {filteredMovies.map((movie) => (
                 <MovieCard
