@@ -22,19 +22,50 @@ const MovieList = () => {
     const [dropdown, setDropdown] = useState(false);
     const handleDropdown = () => setDropdown(!dropdown);
 
+
+    useEffect(() => {
+
+        let movieUpdate = [...movies];
+        
+        if(searchQuery.trim()){
+            movieUpdate = movies.filter((movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase()));
+        }
+            
+        movieUpdate.sort((a, b) => {
+            if(sortAtoZ === 'Ascending'){
+                return a.title.localeCompare(b.title);
+            }
+            else if (sortRating === 'Descending'){
+                return b.vote_average - a.vote_average;
+            }
+            else if (sortRelease === 'Descending'){
+                return b.release_date.localeCompare(a.release_date);
+            }
+            else{
+                return 0;
+            }
+        });
+        setFilteredMovies(movieUpdate);
+    }, [movies, sortAtoZ, sortRating, sortRelease, searchQuery]);
+
+
+    
     useEffect(() => {   
-        const click = (e) => {
+        //checks if dropdown items were clicked
+        const clicked = (e) => {
             if(e.target.closest('.dropdown-content')){
                 setDropdown(false);
             }
         };
-        document.addEventListener('click', click);
+        
+        //adding event listener to document 
+        document.addEventListener('click', clicked);
         return () => {
-            document.removeEventListener('click', click);
+            document.removeEventListener('click', clicked);
         };
     }, []);
 
-
+    
     useEffect(() => {
         const fetchList = async () => {
             try{
@@ -56,18 +87,7 @@ const MovieList = () => {
         fetchList();
     },[page]);
 
-    useEffect(() => {
-
-        //
-       if(!searchQuery.trim()){
-           setFilteredMovies(movies);
-       } else {
-
-        //determining if any of the movie titles match the search query
-        const toLower = searchQuery.toLowerCase();  
-        setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(toLower)));
-       }
-    }, [movies, searchQuery]);
+    
 
     //sets the input value to the value of the search query when the search query is updated
     const handleChange = (e) => {
@@ -96,8 +116,10 @@ const MovieList = () => {
             <button onClick={handleClear}> Clear</button>
         </div>
 
+        {/*dropdown menu for sorting movies*/}
         <div className = "dropdown">
             <button className="dropbtn" onClick={handleDropdown}>Sort By</button>
+            <button className="clearbtn" onClick={()=> {setDropdown(false); setSortAtoZ(''); setSortRating(''); setSortRelease('');}}>X</button> 
             <div className={dropdown ? "dropdown-content show" : "dropdown-content"}>
                 <a href="#" onClick={() => {setSortAtoZ('Ascending'); setDropdown(false);}}>Sort A to Z</a>
                 <a href="#" onClick={() => {setSortRelease('Descending'); setDropdown(false);}}>Release Date Descending</a>
