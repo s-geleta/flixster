@@ -10,6 +10,7 @@ const MovieModal = ({show, movie, onClose ,title, poster, rating}) => {
     if(!movie) {
         return(
             <>
+            {/*handles loading screen for modal while fetching movies*/} 
             <div className="modal" onClick={onClose}>
                 <div className = "modal-content" onClick={(e) => e.stopPropagation()}>
                     <div className="modal-header">
@@ -31,6 +32,7 @@ const MovieModal = ({show, movie, onClose ,title, poster, rating}) => {
     
     return (
         <>
+        {/*modal for displaying movie details*/}
         <div className="modal" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">

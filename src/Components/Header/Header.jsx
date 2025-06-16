@@ -10,6 +10,7 @@ const Header = () => {
     <>
     <div className = 'header'>
         <h1>FLIXSTER</h1> 
+        <img className="popcorn" src="src/assets/popcorn.png" alt="popcorn" />
     </div>
     </>
   )

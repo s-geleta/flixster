@@ -1,42 +1,61 @@
+*{
+    background-color: transparent;
+}
 .movie-card {
     display:flex;
     flex-direction : column;
     align-items: center;
-    background: whitesmoke;
+    background: transparent;
     border-radius: 10px;
-    border: lightgrey double 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: whitesmoke dashed 3px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.04);
     padding: 1rem;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 20px; 
+    padding: 10px; 
+    padding-bottom: 40px;
     margin: 10px;   
-    height: 23rem;
+    height: 26rem;
     width: 80%;
+    color: black;
+    text-shadow: palegoldenrod 0px 0px 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
 }
 
 .movie-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    border: darkred double 5px;
+    box-shadow: 0 0 20px palegoldenrod;
+    
 }
 
 .movie-card img {
-    
-    height: 275px;
-    object-fit: contain;
+    height: 300px;
+    object-fit: cover;
     margin-bottom: .7rem;
     transition: transform 0.3s ease; 
+    border-radius: 10px;
+    box-shadow: palegoldenrod 0px 0px 10px;
+    flex:1;
 }
+
 
 .movie-card:hover img {
     transform: scale(1.1);
 }
 
 .movie-card h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
+.movie-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+
 .movie-card:hover h1 {
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    text-decoration:underline;
+    padding-bottom: 0.8rem;
+   
 }   

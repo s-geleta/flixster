@@ -152,25 +152,30 @@ const MovieList = () => {
 
     return (
         <>
-        {/*search bar for user input */}
-        <div>
-            <input type="text" placeholder="Search for movies..." value={input} 
-            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
-            <button className="search-button" onClick={handleSearch}>Search</button>
-            <button className="clear-button" onClick={handleClear}> Clear</button>
-        </div>
-
-        {/*dropdown menu for sorting movies*/}
-        <div className = "dropdown">
-            <button className="dropbtn" onClick={handleDropdown}>Sort By</button>
-            <button className="clearbtn" onClick={()=> {setDropdown(false); setSort('');}}>X</button>
-            <div className={dropdown ? "dropdown-content show" : "dropdown-content"}>
-                <a href="#" onClick={() => {setSort('title.asc'); setDropdown(false);}}>Sort A to Z</a>
-                <a href="#" onClick={() => {setSort('release_date.desc'); setDropdown(false);}}>Release Date Descending</a>
-                <a href="#" onClick={() => {setSort('vote_average.desc'); setDropdown(false);}}>Rating Descending</a>
-                
+        <div className="sort">
+            {/*search bar for user input */}
+            <div>
+                <input type="text" placeholder="Search for movies..." value={input} 
+                onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
+                <button className="search-button" onClick={handleSearch}>Search</button>
+                <button className="clear-button" onClick={handleClear}> Clear</button>
             </div>
+
+            {/*dropdown menu for sorting movies*/}
+            <div className = "dropdown">
+                <button className="dropbtn" onClick={handleDropdown}>Sort By</button>
+                <button className="clearbtn" onClick={()=> {setDropdown(false); setSort('');}}>X</button>
+                <div className={dropdown ? "dropdown-content show" : "dropdown-content"}>
+                    <a href="#" onClick={() => {setSort('title.asc'); setDropdown(false);}}>Sort A to Z</a>
+                    <a href="#" onClick={() => {setSort('release_date.desc'); setDropdown(false);}}>Release Date Descending</a>
+                    <a href="#" onClick={() => {setSort('vote_average.desc'); setDropdown(false);}}>Rating Descending</a>
+                    
+                </div>
+            </div>
+
+
         </div>
+        
 
 
         {/* returns list of movies to the app*/}

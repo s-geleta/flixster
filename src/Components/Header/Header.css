@@ -1,14 +1,36 @@
 .header { 
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 3rem;
+    display: grid;
+    justify-content: center;
+    align-items: center ;
+    font-size: 3.2rem;
+    margin-bottom: 40px;
+    transform: translateY(-60px);
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     padding: 20px 20px 0px 20px;
     height: 110px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 10px whitesmoke;
+    color: brown;
+    background-image: url("src/assets/movie2.png");
+    opacity:.9;
+    background-size:contain;
+    background-position-y: absolute;
+    background-position-x: center;
 }
 
+.popcorn {
+    display: inline;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: -30%;
+    
+}   
 
+.header h1 {
+    margin-top: 80px;
+    padding-bottom: 40px;
+    outline: auto;
+    padding: 0px 15px 0px 15px;
+}
 
