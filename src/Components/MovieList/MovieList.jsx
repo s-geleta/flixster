@@ -52,10 +52,12 @@ const MovieList = () => {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTgyODQxYThiMTBhZGNiNWVlZTE2MzQ0NTA3OWEwMSIsIm5iZiI6MTc0OTgzODMzNC43MTYsInN1YiI6IjY4NGM2OWZlNWQwZmNmNzczMDVjNzQ3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G7-mS54v47mBxzyXaLV2rBQfax1lgZpD1odYnBoIjws`,
                     accept: "application/json",
                 };
+                let searching = false;
 
                 if(searchQuery.trim()){
                     url = "https://api.themoviedb.org/3/search/movie?query=" + searchQuery ;
                     params.query = searchQuery;
+                    searching = true;
                 }
                 else if(sort){
                     url = "https://api.themoviedb.org/3/discover/movie";
@@ -70,6 +72,18 @@ const MovieList = () => {
                 const { data } = await axios.get(url, {
                     params: params, 
                     headers: headers, });
+                    let results = data.results;
+                    if( searching && sort) {
+                        if (sort === 'title.asc') {
+                            results.sort((a, b) => a.title.localeCompare(b.title));
+                        }
+                        else if (sort === 'release_date.desc') {
+                            results.sort((a, b) => b.release_date.localeCompare(a.release_date));
+                        }
+                        else if (sort === 'vote_average.desc') {
+                            results.sort((a, b) => b.vote_average - a.vote_average);
+                        }
+                    }
                 setMovies(prevMovies=> page === 1 ? data.results : [...prevMovies, ...data.results]);
             }
             catch(err){
@@ -106,7 +120,7 @@ const MovieList = () => {
         {/*search bar for user input */}
         <div>
             <input type="text" placeholder="Search for movies" value={input} 
-            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch}/> 
+            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
             <button onClick={handleSearch}>Search</button>
             <button onClick={handleClear}> Clear</button>
         </div>
@@ -114,7 +128,7 @@ const MovieList = () => {
         {/*dropdown menu for sorting movies*/}
         <div className = "dropdown">
             <button className="dropbtn" onClick={handleDropdown}>Sort By</button>
-            <button className="clearbtn" onClick={()=> {setDropdown(false); setSortAtoZ(''); setSortRating(''); setSortRelease('');}}>X</button> 
+            <button className="clearbtn" onClick={()=> {setDropdown(false); setSort('');}}>X</button>
             <div className={dropdown ? "dropdown-content show" : "dropdown-content"}>
                 <a href="#" onClick={() => {setSort('title.asc'); setDropdown(false);}}>Sort A to Z</a>
                 <a href="#" onClick={() => {setSort('release_date.desc'); setDropdown(false);}}>Release Date Descending</a>
