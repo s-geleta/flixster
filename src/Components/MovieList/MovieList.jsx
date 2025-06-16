@@ -23,14 +23,16 @@ const MovieList = () => {
     const handleDropdown = () => setDropdown(!dropdown);
 
 
+    //renders the movies based on filter chosen
     useEffect(() => {
 
+        //filters the movie data based on the search query
         let movieUpdate = [...movies];
-        
         if(searchQuery.trim()){
             movieUpdate = movies.filter((movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase()));
         }
-            
+        
+        //determines how to sort the movie data based on which dropdown item is selected
         movieUpdate.sort((a, b) => {
             if(sortAtoZ === 'Ascending'){
                 return a.title.localeCompare(b.title);
@@ -49,6 +51,23 @@ const MovieList = () => {
     }, [movies, sortAtoZ, sortRating, sortRelease, searchQuery]);
 
 
+    useEffect (() => {
+        const searchList = async () => {
+            try{
+                const { data } = await axios.get("https://api.themoviedb.org/3/search/movie", {
+                params: {language: 'en-US', query: searchQuery, page:page },
+                headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTgyODQxYThiMTBhZGNiNWVlZTE2MzQ0NTA3OWEwMSIsIm5iZiI6MTc0OTgzODMzNC43MTYsInN1YiI6IjY4NGM2OWZlNWQwZmNmNzczMDVjNzQ3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G7-mS54v47mBxzyXaLV2rBQfax1lgZpD1odYnBoIjws`,
+                accept: "application/json",
+                },
+            });
+        }catch(err){
+            console.error("Error fetching movies: ", err);
+        }
+        setFilteredMovies(data.results);
+        };
+        searchList();
+    }, [movies]);   
     
     useEffect(() => {   
         //checks if dropdown items were clicked
@@ -65,7 +84,7 @@ const MovieList = () => {
         };
     }, []);
 
-    
+    //fetches movies from the API
     useEffect(() => {
         const fetchList = async () => {
             try{
@@ -109,10 +128,11 @@ const MovieList = () => {
 
     return (
         <>
+        {/*search bar for user input */}
         <div>
             <input type="text" placeholder="Search for movies" value={input} 
-            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
-            <button onClick={handleSearch}>Search</button> 
+            onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && searchList}/> 
+            <button onClick={searchList}>Search</button>
             <button onClick={handleClear}> Clear</button>
         </div>
 
@@ -129,7 +149,7 @@ const MovieList = () => {
         </div>
 
 
-
+        {/* returns list of movies to the app*/}
         <div className ="movie-list">
             {filteredMovies.map((movie) => (
                 <MovieCard
