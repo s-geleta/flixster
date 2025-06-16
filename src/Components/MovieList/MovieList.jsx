@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCard from "../MovieCard/MovieCard";
 import "./MovieList.css";
+import MovieModal from "../MovieModal/MovieModal";
 
 
 
@@ -18,6 +19,9 @@ const MovieList = () => {
     
     const [dropdown, setDropdown] = useState(false);
     const handleDropdown = () => setDropdown(!dropdown);
+
+    const [show, setShow] = useState(false);
+    const [movie, setMovie] = useState(null);
 
 
  
@@ -43,6 +47,7 @@ const MovieList = () => {
     useEffect(() => {
         const fetchList = async () => {
             try{
+                //begins with empty url
                 let url = '';
                 const params = {
                     language: 'en-US',
@@ -52,27 +57,32 @@ const MovieList = () => {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTgyODQxYThiMTBhZGNiNWVlZTE2MzQ0NTA3OWEwMSIsIm5iZiI6MTc0OTgzODMzNC43MTYsInN1YiI6IjY4NGM2OWZlNWQwZmNmNzczMDVjNzQ3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G7-mS54v47mBxzyXaLV2rBQfax1lgZpD1odYnBoIjws`,
                     accept: "application/json",
                 };
+                //variable to check if user is searching
                 let searching = false;
-
+            
+                //sets url and params based on search query and sets searching to true
                 if(searchQuery.trim()){
                     url = "https://api.themoviedb.org/3/search/movie?query=" + searchQuery ;
                     params.query = searchQuery;
                     searching = true;
                 }
+                //sets fetching url based on sort and updates parms
                 else if(sort){
                     url = "https://api.themoviedb.org/3/discover/movie";
                     params.sort_by = sort;
                     params.include_adult = 'false';
                     params.include_video = 'false'; 
                 }
+                //if not searching or sorting, sets url to movies now playing
                 else{
                     url = "https://api.themoviedb.org/3/movie/now_playing";
                 }
 
+                //fetches data based on state of site, allows for manual sorting if also searching
                 const { data } = await axios.get(url, {
                     params: params, 
                     headers: headers, });
-                    let results = data.results;
+                    let results = [...data.results];    
                     if( searching && sort) {
                         if (sort === 'title.asc') {
                             results.sort((a, b) => a.title.localeCompare(b.title));
@@ -92,6 +102,31 @@ const MovieList = () => {
         };
         fetchList();
     },[page, searchQuery, sort]);
+
+    // handles modal pop up based ono if movie card is clicked
+    const handleCardClick = async (movie) => {
+        setShow(true);
+        setMovie(null);
+
+        try {
+            const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}`, {
+                headers: {
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTgyODQxYThiMTBhZGNiNWVlZTE2MzQ0NTA3OWEwMSIsIm5iZiI6MTc0OTgzODMzNC43MTYsInN1YiI6IjY4NGM2OWZlNWQwZmNmNzczMDVjNzQ3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G7-mS54v47mBxzyXaLV2rBQfax1lgZpD1odYnBoIjws`,
+                    accept: "application/json",
+                },
+            });
+
+            setMovie(data);
+            setShow(true);
+        } catch (err) {
+            console.error("Error fetching movie: ", err);
+        }
+    };
+
+    const handleClose = () => {
+        setShow(false);
+        setMovie(null);
+    };
 
     
 
@@ -146,6 +181,7 @@ const MovieList = () => {
                 name={movie.title}
                 poster={movie.poster_path}
                 rating={movie.vote_average}
+                onClick={() => handleCardClick(movie)}
                 />
             ))}
             
@@ -153,6 +189,9 @@ const MovieList = () => {
         
         {/*loads more movies by adding a page when load more is pressed*/}
         <button onClick={() => setPage((prev) => prev + 1)} className="load-more">Load More</button>
+
+
+        <MovieModal show={show} movie={movie} onClose={handleClose} />
 
     
         </>
