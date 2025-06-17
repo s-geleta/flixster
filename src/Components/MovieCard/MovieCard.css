@@ -78,7 +78,7 @@
 
 
 .movie-card:hover h1 {
-    text-decoration:underline;
+   
     padding-bottom: 0.8rem;
     -webkit-text-stroke: 0.5px maroon;
    

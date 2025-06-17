@@ -43,7 +43,7 @@ const MovieModal = ({show, movie, onClose ,title, poster, rating}) => {
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="poster" />
                     <h3> Runtime: {movie.runtime} minutes </h3>
                     <h3>Release Date: {movie.release_date}</h3>
-                    <h3>Overview: {movie.overview}</h3>
+                    <p><strong>Overview: </strong>{movie.overview}</p>
                     <h3>Genres: {movie.genres.map((genre) => genre.name).join(", ")}</h3>
                         
                 </div>
