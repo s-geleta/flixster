@@ -71,7 +71,7 @@ const MovieList = () => {
                     url = "https://api.themoviedb.org/3/discover/movie";
                     params.sort_by = sort;
                     params.include_adult = 'false';
-                    params.include_video = 'false'; 
+                    params.include_video = 'true'; 
                 }
                 //if not searching or sorting, sets url to movies now playing
                 else{
@@ -81,19 +81,10 @@ const MovieList = () => {
                 //fetches data based on state of site, allows for manual sorting if also searching
                 const { data } = await axios.get(url, {
                     params: params, 
-                    headers: headers, });
-                    let results = [...data.results];    
-                    if( searching && sort) {
-                        if (sort === 'title.asc') {
-                            results.sort((a, b) => a.title.localeCompare(b.title));
-                        }
-                        else if (sort === 'release_date.desc') {
-                            results.sort((a, b) => b.release_date.localeCompare(a.release_date));
-                        }
-                        else if (sort === 'vote_average.desc') {
-                            results.sort((a, b) => b.vote_average - a.vote_average);
-                        }
-                    }
+                    headers: headers, 
+                });
+
+                    let results = [...data.results];
                 setMovies(prevMovies=> page === 1 ? data.results : [...prevMovies, ...data.results]);
             }
             catch(err){
@@ -115,6 +106,7 @@ const MovieList = () => {
                     accept: "application/json",
                 },
             });
+            
 
             setMovie(data);
             setShow(true);
@@ -158,7 +150,7 @@ const MovieList = () => {
                 <input type="text" placeholder="Search for movies..." value={input} 
                 onChange={handleChange} onKeyDown={(e) => e.key === "Enter" && handleSearch()}/> 
                 <button className="search-button" onClick={handleSearch}>Search</button>
-                <button className="clear-button" onClick={handleClear}> Clear</button>
+                <button className="clear-button" onClick={handleClear}> Now Playing</button>
             </div>
 
             {/*dropdown menu for sorting movies*/}
@@ -193,7 +185,8 @@ const MovieList = () => {
         </div>
         
         {/*loads more movies by adding a page when load more is pressed*/}
-        <button onClick={() => setPage((prev) => prev + 1)} className="load-more">Load More</button>
+        <button onClick={() => setPage((prev) => prev + 1)} 
+        className="load-more">Load More</button>
 
 
         <MovieModal show={show} movie={movie} onClose={handleClose} />

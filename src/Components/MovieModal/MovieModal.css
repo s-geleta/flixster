@@ -37,7 +37,7 @@
   animation: slideDown 0.3s ease-out;
   opacity: 1;
   border: double darkred 5px;
-  box-shadow: inset 0 0 20px whitesmoke;
+  box-shadow: inset 0 0 20px lightgoldenrodyellow;
 
 }
 
@@ -102,9 +102,8 @@
     -webkit-text-stroke: 0.5px maroon;
     text-decoration:  2px whitesmoke underline;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
 }   
-.modal-body img {
+.modal-body img.poster {
     display: block;
     width: 200px;
     height: auto;
@@ -112,6 +111,7 @@
     border-left: dashed whitesmoke 4px;
     border-right: dashed whitesmoke 4px;
     border-radius: 10px;
+    z-index: auto;
 }
 
 .modal h3 {    
@@ -124,3 +124,17 @@
     text-align: center;
 }
 
+.spotlight {
+    margin-top: 35px;
+    position: absolute;
+    top: -5%;
+    right:42%;
+    width: 100px;
+    height: 300px;
+    object-fit: contain;
+    border:none;
+    border-left: none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 10px;
+}
