@@ -34,7 +34,7 @@
   padding: 1.5rem;
   box-shadow: 0 6px 20px white(0, 0, 0, 5);
   animation: slideDown 0.3s ease-out;
-  opacity: .95;
+  opacity: 1;
 }
 
 @keyframes slideDown {
@@ -90,6 +90,7 @@
     color: #222;
     text-align: center;
     margin-top: 1rem;
+    -webkit-text-stroke: 0.5px maroon;
 
 }   
 .modal-body img {
