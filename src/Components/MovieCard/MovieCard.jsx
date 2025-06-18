@@ -23,7 +23,7 @@ const MovieCard = ({ name, onClick, poster, rating }) => {
             <span className = 'like-count'>{likes}</span>
             <div onClick ={onClick}>
                 <h1>{name}</h1>
-                <img className = "poster" src={`https://image.tmdb.org/t/p/w500${poster}`} alt={name} onError={(e) => e.target.src = "src/assets/img.jpg"} />
+                <img className = "poster" src={`https://image.tmdb.org/t/p/w500${poster}`} alt={name} onError={(e) => e.target.src = "/src/assets/img.jpg"} />
                 <p>Rating: {rating}</p>
             </div>
             <input type="checkbox" className="check"/>

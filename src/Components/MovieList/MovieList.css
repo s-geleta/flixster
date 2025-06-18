@@ -9,7 +9,6 @@
     padding: 1rem; 
     margin-top: -52px;
     padding-top: 60px;
-    /*background-image: linear-gradient(to top, #CC6b49, whitesmoke,whitesmoke, lightgoldenrodyellow, #CC6b49, whitesmoke, whitesmoke);*/
     background-color: black;
     margin-bottom: -55px;
     padding-left: 2rem;
@@ -163,7 +162,7 @@ input{
 }   
 
 .sort{
-    background-image: url("src/assets/movie2.png");
+    background-image: url("/src/assets/movie2.png");
     background-size: 200px;
     background-position-y: -25px;
     background-position-x: center;

@@ -10,7 +10,7 @@
     padding: 20px 20px 0px 20px;
     height: 110px;
     text-shadow: 0 0 10px whitesmoke;
-    background-image: url("src/assets/movie2.png");
+    background-image: url("/src/assets/movie2.png");
     opacity:1;
     background-size:200px;
     background-position-y: 20px;
