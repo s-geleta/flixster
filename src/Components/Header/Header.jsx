@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'    
 import './Header.css'
+import popcorn from '../../assets/popcorn.png';
 
 const Header = () => {
 
@@ -10,7 +11,7 @@ const Header = () => {
     <>
     <div className = 'header'>
         <h1>FLIXSTER</h1> 
-        <img className="popcorn" src="/popcorn.png" alt="popcorn" />
+        <img className="popcorn" src={popcorn} alt="popcorn" />
     </div>
     </>
   )
