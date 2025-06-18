@@ -2,12 +2,41 @@ import React from "react";
 import "./MovieModal.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { use } from "react";
 
 
 const MovieModal = ({show, movie, onClose ,title, poster, rating}) => {
 
     const [videos, setVideos] = useState(['']);
+    useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/videos`, 
+                    {
+                        headers:{
+                            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTgyODQxYThiMTBhZGNiNWVlZTE2MzQ0NTA3OWEwMSIsIm5iZiI6MTc0OTgzODMzNC43MTYsInN1YiI6IjY4NGM2OWZlNWQwZmNmNzczMDVjNzQ3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G7-mS54v47mBxzyXaLV2rBQfax1lgZpD1odYnBoIjws`,
+                            accept: "application/json",
+                        },
+                    }
+                );
 
+                const trailer = data .results.find((video) => video.type === "Trailer" && video.site === "YouTube");
+                if (trailer) {
+                    setVideos([trailer]);
+                } else {
+                    setVideos([]);  
+                }
+            } catch (err) {
+                console.error("Error fetching videos: ", err);
+            }
+        };
+
+        if(movie?.id) {
+            fetchVideos();
+        }
+    }, [movie]);
+
+            
     if(!show) {
         return null;
     }
@@ -53,7 +82,7 @@ const MovieModal = ({show, movie, onClose ,title, poster, rating}) => {
                     <h3>Release Date: {movie.release_date}</h3>
                     <p><strong>Overview: </strong>{movie.overview}</p>
                     <h3>Genres: {movie.genres.map((genre) => genre.name).join(", ")}</h3>
-                    <iframe width="600" height="315" src='' allowfullscreen></iframe>
+                    <iframe width="600" height="315" src={`https://www.youtube.com/embed/${videos[0].key}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     
                    
                 </div>
