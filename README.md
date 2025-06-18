@@ -60,7 +60,7 @@ Deployed Application (optional): [Flixster Deployed Site](https://senafs-flixste
     - [X] Search bar
     - [X] Movie grid
     - [X] Footer section
-    - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it. 
+    - [X] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it. 
 
 #### STRETCH FEATURES
 
@@ -100,9 +100,11 @@ Deployed Application (optional): [Flixster Deployed Site](https://senafs-flixste
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
+Video If Embedding Doesnt Work: [Video Recording](https://www.loom.com/share/f82ee21fba9243f4a32606fb19442384?sid=8849dde8-5db4-4b8d-9255-ce1f26fb825b)
 
-`ADD_EMBEDDED_CODE_HERE`
+`<div style="position: relative; padding-bottom: 57.38575982996812%; height: 0;"><iframe src="https://www.loom.com/embed/f82ee21fba9243f4a32606fb19442384?sid=b18361fd-2b44-4104-ada6-ec4f58bf72ae" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>`
+
+
 
 ### Reflection
 
